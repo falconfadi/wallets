@@ -27,9 +27,29 @@ class Wallet extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    //  Mutator to round to 2 decimals
+    //  Mutator to round Balance
     public function setBalanceAttribute($value)
     {
         $this->attributes['balance'] = round($value, 0);
+    }
+
+    // Scope for filtering by owner
+    public function scopeByOwner($query, $ownerName)
+    {
+        if ($ownerName) {
+            return $query->where('owner_name', 'like', "%{$ownerName}%");
+        }
+        return $query;
+    }
+
+    // Scope for filtering by currency
+    public function scopeByCurrency($query, $currencyCode)
+    {
+        if ($currencyCode) {
+            return $query->whereHas('currency', function ($q) use ($currencyCode) {
+                $q->where('code', $currencyCode);
+            });
+        }
+        return $query;
     }
 }
