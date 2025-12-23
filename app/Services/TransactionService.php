@@ -234,6 +234,16 @@ class TransactionService
             throw new \Exception('Insufficient funds in source wallet', 422);
         }
 
+        // Check same currency
+        if ($fromWallet->currency_id !== $toWallet->currency_id) {
+            throw new \Exception(
+                'Transfers are only allowed between wallets with the same currency. ' .
+                "Source wallet currency: {$fromWallet->currency->code}, " .
+                "Destination wallet currency: {$toWallet->currency->code}",
+                422
+            );
+        }
+
         // Generate idempotency key if not provided
         if (!$idempotencyKey) {
             $idempotencyKey = IdempotencyKey::generateKey();
@@ -284,7 +294,7 @@ class TransactionService
                 'amount' => $data['amount'],
                 'type' => 'withdrawal',
                 'category' => 'transfer',
-                'description' => $data['description'] ?? "Transfer to Wallet #{$toWallet->id}",
+                'description' => $data['description'] ?? "Transfer to Wallet #{$toWallet->owner_name}",
                 'transaction_date' => now(),
                 'reference' => $transfer->reference,
             ]);
@@ -295,7 +305,7 @@ class TransactionService
                 'amount' => $data['amount'],
                 'type' => 'deposit',
                 'category' => 'transfer',
-                'description' => $data['description'] ?? "Transfer from Wallet #{$fromWallet->id}",
+                'description' => $data['description'] ?? "Transfer from Wallet #{$fromWallet->owner_name}",
                 'transaction_date' => now(),
                 'reference' => $transfer->reference,
             ]);

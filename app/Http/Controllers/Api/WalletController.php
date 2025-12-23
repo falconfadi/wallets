@@ -78,18 +78,22 @@ class WalletController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * GET /wallets/{id}/balance
+     * Returns the current wallet balance.
      */
-    public function update(Request $request, Wallet $wallet)
+    public function balance(Wallet $wallet): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Wallet $wallet)
-    {
-        //
+        return response()->json([
+            'message' => 'Wallet balance retrieved successfully',
+            'data' => [
+                'wallet_id' => $wallet->id,
+                'name' => $wallet->name,
+                'owner_name' => $wallet->owner_name,
+                'balance' => $wallet->balance,
+                'currency' => $wallet->currency->code ?? null,
+                'currency_name' => $wallet->currency->name ?? null,
+                'last_updated' => $wallet->updated_at->format('Y-m-d H:i:s'),
+            ]
+        ]);
     }
 }

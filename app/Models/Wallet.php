@@ -30,8 +30,12 @@ class Wallet extends Model
         return $this->hasMany(Transaction::class);
     }
 
-    //  Mutator to round Balance
-    public function setBalanceAttribute($value)
+    // Accessor/mutator for balance
+    public function getAmountAttribute($value)
+    {
+        return (int) $value;
+    }
+    public function setAmountAttribute($value)
     {
         $this->attributes['balance'] = round($value, 0);
     }

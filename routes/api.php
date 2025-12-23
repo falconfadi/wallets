@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\HealthController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\TransferController;
 use Illuminate\Http\Request;
@@ -10,12 +11,9 @@ use App\Http\Controllers\Api\WalletController;
 //    return $request->user();
 //})->middleware('auth:sanctum');
 
-Route::get('/hello', function () {
-    return "Hello World!";
-});
-
-
-//use App\Http\Controllers\Api\TransactionController;
+//Route::get('/hello', function () {
+//    return "Hello World!";
+//});
 
 // Wallet routes
 Route::apiResource('wallets', WalletController::class);
@@ -25,9 +23,14 @@ Route::prefix('wallets/{wallet}')->group(function () {
     Route::post('/deposit', [TransactionController::class, 'deposit']);
     Route::post('/withdraw', [TransactionController::class, 'withdraw']);
     Route::get('/transactions', [TransactionController::class, 'index']);
+    Route::get('/balance', [WalletController::class, 'balance']);
 });
-//transfer route
+//Transfers route
 Route::post('/transfers', [TransferController::class, 'store']);
+
+// Health check endpoint
+Route::get('/health', HealthController::class);
+
 // Nested routes for wallet transactions
 //Route::prefix('wallets/{wallet}')->group(function () {
 //    Route::apiResource('transactions', TransactionController::class);

@@ -44,4 +44,15 @@ class Transfer extends Model
     {
         return $this->from_wallet_id === $this->to_wallet_id;
     }
+
+    // Accessor/mutator for amount
+    public function getAmountAttribute($value)
+    {
+        return (int) $value;
+    }
+
+    public function setAmountAttribute($value)
+    {
+        $this->attributes['amount'] = round($value, 0);
+    }
 }
