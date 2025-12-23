@@ -16,6 +16,9 @@ class Wallet extends Model
         'description',
     ];
 
+    protected $casts = [
+        'balance' => 'integer',
+    ];
 
     public function currency()
     {
