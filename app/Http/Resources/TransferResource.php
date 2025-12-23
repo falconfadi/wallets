@@ -17,8 +17,8 @@ class TransferResource extends JsonResource
             'from_wallet' => new WalletResource($this->whenLoaded('fromWallet')),
             'to_wallet' => new WalletResource($this->whenLoaded('toWallet')),
 
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $this->updated_at->format('Y-m-d H:i:s'),
+            'created_at' => $this->created_at->toDateTimeString(),
+            'updated_at' => $this->updated_at->toDateTimeString(),
         ];
     }
 }

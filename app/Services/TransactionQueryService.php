@@ -82,9 +82,9 @@ class TransactionQueryService
 
         return [
             'total_transactions' => $count,
-            'total_deposits' => $deposits,
-            'total_withdrawals' => $withdrawals,
-            'net_flow' => $deposits - $withdrawals,
+            'total_deposits' => round($deposits, 0),
+            'total_withdrawals' => round($withdrawals, 0),
+            'net_flow' => round($deposits - $withdrawals, 0)
         ];
     }
 

@@ -50,7 +50,7 @@ class WalletController extends Controller
     public function store(StoreWalletRequest  $request):JsonResponse
     {
         $wallet = $this->walletService->createWallet($request->validated());
-        Log::info("hellos");
+
         return response()->json([
             'message' => 'Wallet created successfully',
             'data' => new WalletResource($wallet->load('currency'))
@@ -92,7 +92,7 @@ class WalletController extends Controller
                 'balance' => $wallet->balance,
                 'currency' => $wallet->currency->code ?? null,
                 'currency_name' => $wallet->currency->name ?? null,
-                'last_updated' => $wallet->updated_at->format('Y-m-d H:i:s'),
+                'last_updated' => $wallet->updated_at->toDateTimeString(),
             ]
         ]);
     }

@@ -14,8 +14,8 @@ class TransactionResource extends JsonResource
             'type' => ucfirst($this->type),
             'amount' => $this->amount,
             'description' => $this->description,
-            'transaction_date' => $this->transaction_date->format('Y-m-d H:i:s'),
-            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'transaction_date' => $this->transaction_date->toDateTimeString(),
+            'created_at' => $this->created_at->toDateTimeString(),
 
             'wallet' => new WalletResource($this->whenLoaded('wallet')),
         ];

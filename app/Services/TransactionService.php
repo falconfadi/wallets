@@ -80,7 +80,7 @@ class TransactionService
                     'wallet_id' => $wallet->id,
                     'amount' => $data['amount'],
                     'new_balance' => round($wallet->balance,0),
-                    'transaction_date' => $transaction->transaction_date->format('Y-m-d H:i:s'),
+                    'transaction_date' => $transaction->transaction_date->toDateTimeString(),
                 ],
             ];
 
@@ -195,7 +195,7 @@ class TransactionService
                     'wallet_id' => $wallet->id,
                     'amount' => $data['amount'],
                     'new_balance' => $wallet->balance,
-                    'transaction_date' => $transaction->transaction_date->format('Y-m-d H:i:s'),
+                    'transaction_date' => $transaction->transaction_date->toDateTimeString(),
                 ],
             ];
 
@@ -341,7 +341,7 @@ class TransactionService
                         'debit_id' => $debitTransaction->id,
                         'credit_id' => $creditTransaction->id,
                     ],
-                    'completed_at' => $transfer->created_at->format('Y-m-d H:i:s'),
+                    'completed_at' => $transfer->created_at->toDateTimeString(),
                 ],
             ];
 
