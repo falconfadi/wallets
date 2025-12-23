@@ -44,7 +44,7 @@ class HealthController extends Controller
 
         return response()->json([
             'status' => $status,
-            'timestamp' => now()->toISOString(),
+            'timestamp' => now()->toDateTimeString(),
             'service' => 'Wallet API',
             'version' => '1.0.0',
             'checks' => $checks,
